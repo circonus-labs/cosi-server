@@ -59,10 +59,10 @@ func (s *Server) tool() http.Handler {
 				s.stats.Increment(fmt.Sprintf("%s`%s`%s`%s", r.URL.Path, args.osDistro, args.osVers, args.sysArch))
 
 				// example of expected redirect url:
-				// https://github.com/circonus-labs/cosi-tool/releases/download/v0.2.0/cosi-tool_0.2.0_linux_64-bit.tar.gz
+				// https://github.com/circonus-labs/cosi-tool/releases/download/v0.2.0/cosi-tool_0.2.0_linux_x86_64.tar.gz
 				//
 				cosiVer := viper.GetString(config.KeyCosiToolVersion)
-				redirURL := fmt.Sprintf("%s/%s/cosi-tool_%s_%s_64-bit.tar.gz",
+				redirURL := fmt.Sprintf("%s/%s/cosi-tool_%s_%s_x86_64.tar.gz",
 					viper.GetString(config.KeyCosiToolBaseURL),
 					cosiVer,
 					strings.Replace(cosiVer, "v", "", 1),

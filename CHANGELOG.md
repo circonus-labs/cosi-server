@@ -1,3 +1,7 @@
+# v0.4.0
+
+* upd: release file names use x86_64, facilitate automated builds and testing
+
 # v0.3.0
 
 * doc: pre-release comment
