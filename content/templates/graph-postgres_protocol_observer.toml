@@ -1,0 +1,214 @@
+type = "graph"
+name = "postgres_protocol_observer"
+version = "1.0.0"
+
+description = '''
+Postgres protocol_observer visualizations
+'''
+
+[configs.execute_latency]
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [
+        {
+            "alpha": "0.101960784313725",
+            "axis": "r",
+            "caql": "metric:histogram(\"{{.CheckUUID}}\",\"postgres_protocol_observer`Execute`latency\") | histogram:rate()",
+            "check_id": {{.CheckID}},
+            "color": "#657aa6",
+            "data_formula": null,
+            "derive": false,
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": null,
+            "metric_type": "caql",
+            "name": "Total Executions/second",
+            "stack": null
+        },
+        {
+            "alpha": "0",
+            "axis": "l",
+            "caql": "metric:histogram(\"{{.CheckUUID}}\",\"postgres_protocol_observer`Execute`latency\") | histogram:percentile(0,25,50,75,100)",
+            "check_id": {{.CheckID}},
+            "color": "#c4522d",
+            "data_formula": null,
+            "derive": false,
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": null,
+            "metric_type": "caql",
+            "name": "Quartile Banding",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#4fa18e",
+            "data_formula": null,
+            "derive": false,
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "postgres_protocol_observer`Execute`latency",
+            "metric_type": "histogram",
+            "name": "Execute`latency",
+            "stack": null
+        }
+    ],
+    "description": "Postgres Execute Latency",
+    "guides": [],
+    "line_style": "stepped",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": "0.001",
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": null,
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": ["database:postgres", "database:execute_latency"],
+    "title": "{{.HostName}} Postgres Execute Latency"
+}
+'''
+
+[configs.query_latency]
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [
+        {
+            "alpha": "0.101960784313725",
+            "axis": "r",
+            "caql": "metric:histogram(\"{{.CheckUUID}}\",\"postgres_protocol_observer`Query`latency\") | histogram:rate()",
+            "check_id": {{.CheckID}},
+            "color": "#657aa6",
+            "data_formula": null,
+            "derive": false,
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": null,
+            "metric_type": "caql",
+            "name": "Total Queries/second",
+            "stack": null
+        },
+        {
+            "alpha": "0",
+            "axis": "l",
+            "caql": "metric:histogram(\"{{.CheckUUID}}\",\"postgres_protocol_observer`Query`latency\") | histogram:percentile(0,25,50,75,100)",
+            "check_id": {{.CheckID}},
+            "color": "#c4522d",
+            "data_formula": null,
+            "derive": false,
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": null,
+            "metric_type": "caql",
+            "name": "Quartile Banding",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#4fa18e",
+            "data_formula": null,
+            "derive": false,
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "postgres_protocol_observer`Query`latency",
+            "metric_type": "histogram",
+            "name": "Query`latency",
+            "stack": null
+        }
+    ],
+    "description": "Postgres Query Latency",
+    "guides": [],
+    "line_style": "stepped",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": "0.001",
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": null,
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": ["database:postgres", "database:query_latency"],
+    "title": "{{.HostName}} Postgres Query Latency"
+}
+'''
+
+[configs.bind_latency]
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [
+        {
+            "alpha": "0.101960784313725",
+            "axis": "r",
+            "caql": "metric:histogram(\"{{.CheckUUID}}\",\"postgres_protocol_observer`Bind`latency\") | histogram:rate()",
+            "check_id": {{.CheckID}},
+            "color": "#657aa6",
+            "data_formula": null,
+            "derive": false,
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": null,
+            "metric_type": "caql",
+            "name": "Total Bound queries/second",
+            "stack": null
+        },
+        {
+            "alpha": "0",
+            "axis": "l",
+            "caql": "metric:histogram(\"{{.CheckUUID}}\",\"postgres_protocol_observer`Bind`latency\") | histogram:percentile(0,25,50,75,100)",
+            "check_id": {{.CheckID}},
+            "color": "#c4522d",
+            "data_formula": null,
+            "derive": false,
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": null,
+            "metric_type": "caql",
+            "name": "Quartile Banding",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#4fa18e",
+            "data_formula": null,
+            "derive": false,
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "postgres_protocol_observer`Bind`latency",
+            "metric_type": "histogram",
+            "name": "Bind`latency",
+            "stack": null
+        }
+    ],
+    "description": "Postgres Bind Latency",
+    "guides": [],
+    "line_style": "stepped",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": "0.001",
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": null,
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": ["database:postgres", "database:bind_latency"],
+    "title": "{{.HostName}} Postgres Bound Query Latency"
+}
+'''

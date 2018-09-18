@@ -1,0 +1,171 @@
+type = "graph"
+name = "systemd"
+version = "1.0.0"
+
+description = '''
+Systemd service metrics
+'''
+
+[configs.services]
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color": "#af5779",
+            "data_formula": null,
+            "derive": "gauge",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "systemd`state`failed",
+            "metric_type": "numeric",
+            "name": "",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color": "#0c070f",
+            "data_formula": null,
+            "derive": "gauge",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "systemd`state`inactive",
+            "metric_type": "numeric",
+            "name": "",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color": "#8e69a2",
+            "data_formula": null,
+            "derive": "gauge",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "systemd`state`reloading",
+            "metric_type": "numeric",
+            "name": "",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color": "#a3664e",
+            "data_formula": null,
+            "derive": "gauge",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "systemd`state`deactivating",
+            "metric_type": "numeric",
+            "name": "",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color": "#b5c52d",
+            "data_formula": null,
+            "derive": "gauge",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "systemd`state`activating",
+            "metric_type": "numeric",
+            "name": "",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color": "#4fa18e",
+            "data_formula": null,
+            "derive": "gauge",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "systemd`state`active",
+            "metric_type": "numeric",
+            "name": "",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color": "#4fa18e",
+            "data_formula": "=-1 * VAL",
+            "derive": "gauge",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "systemd`load`loaded",
+            "metric_type": "numeric",
+            "name": "",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color": "#657aa6",
+            "data_formula": "=-1 * VAL",
+            "derive": "gauge",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "systemd`load`masked",
+            "metric_type": "numeric",
+            "name": "",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color": "#b5c52d",
+            "data_formula": "=-1 * VAL",
+            "derive": "gauge",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "systemd`load`not-found",
+            "metric_type": "numeric",
+            "name": "",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color": "#af5779",
+            "data_formula": "=-1 * VAL",
+            "derive": "gauge",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "systemd`load`error",
+            "metric_type": "numeric",
+            "name": "",
+            "stack": null
+        }
+    ],
+    "description": "Systemd metrics",
+    "guides": [],
+    "line_style": "stepped",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": null,
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": null,
+    "min_right_y": null,
+    "notes": "Circonus One Step Install",
+    "style": "area",
+    "tags": [],
+    "title": "{{.HostName}} Systemd"
+}
+'''

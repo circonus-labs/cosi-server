@@ -1,0 +1,28 @@
+type = "check"
+name = "system"
+version = "1.0.0"
+
+description = '''
+Generic system check configuration template
+'''
+
+# NOTE: for checks, configs do not actually support multiple items - cosi register
+# will only use the *first* one in the configs array, after toml parsing, when
+# it creates the check.
+[configs.system]
+template = '''
+{
+    "brokers": [],
+    "config": {},
+    "display_name": "{{.HostName}} cosi/system",
+    "metric_limit": 0,
+    "metrics": [],
+    "notes": null,
+    "period": 60,
+    "status": "active",
+    "tags": [],
+    "target": "{{.HostTarget}}",
+    "timeout": 10,
+    "type": null
+}
+'''

@@ -1,0 +1,46 @@
+---
+
+listen: []
+content_path: /opt/circonus/cosi-server/content
+package_config_file: /opt/circonus/cosi-server/etc/circonus-packages.yaml
+package_base_url: http://updates.circonus.net/node-agent/packages
+ssl:
+  listen: ""
+  cert_file: /opt/circonus/cosi-server/etc/cosi-server.pem
+  key_file: /opt/circonus/cosi-server/etc/cosi-server.key
+  verify: true
+enable_template_cache: true
+validators:
+  param_type_regex: ^(?i)[a-z-_]+$
+  param_distro_regex: ^(?i)[a-z]+$
+  is_rhel_distro_regex: ^(?i)(CentOS|Fedora|RedHat|Oracle)$
+  is_solaris_distro_regex: ^(?i)(OmniOS|Illumos|Solaris)$
+  param_version_regex: ^[rv]?\d+(\.\d+)*$
+  param_version_cleaner_regex: ^[rv]
+  param_arch_regex: ^(amd64|x86_64|i386|i686)$
+  param_agent_mode_regex: ^(?i)(reverse|pull|push|revonly)$
+  template_category_regex: ^(?i)(check|graph|worksheet|dashboard)$
+  template_name_regex: ^(?i)[a-z0-9_]+$
+brokers:
+  fallback:
+  - 1
+  - 2
+  - 275
+  fallback_default: 2
+  push:
+  - 35
+  push_default: 0
+  pull:
+  - 1
+  - 2
+  - 275
+  pull_default: 2
+rpm_file: ""
+statsd:
+  address: 127.0.0.1:8125
+  interval: 10s
+  prefix: cosi-server
+debug: false
+log:
+  level: warn
+  pretty: false

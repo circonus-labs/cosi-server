@@ -1,0 +1,21 @@
+# MacOS
+.DS_Store
+
+# Vagrant
+.vagrant*/
+
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+
+# rpm and/or tar.gz in content tree
+content/**/*.rpm
+content/**/*.tar.gz
+
+# vendored packages
+vendor*/
+
+# goreleaser files
+dist/

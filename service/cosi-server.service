@@ -1,0 +1,22 @@
+[Unit]
+Description=Circonus One Step Install Server
+Documentation=http://github.com/circonus-labs/cosi-server
+After=network.target
+
+[Service]
+ExecStart=/opt/circonus/cosi-server/sbin/cosi-serverd --listen=":8080"
+Restart=always
+User=nobody
+
+[Install]
+WantedBy=multi-user.target
+#
+# Installation:
+#
+# edit ExecStart accordingly, then:
+#
+#[root@centos7]# cp cosi-server.service /usr/lib/systemd/system/cosi-server.service
+#[root@centos7]# systemctl enable cosi-server
+#[root@centos7]# systemctl start cosi-server
+#[root@centos7]# systemctl status cosi-server
+#

@@ -1,0 +1,85 @@
+type = "graph"
+name = "fs"
+version = "1.0.0"
+
+description = '''
+Percent of space and inodes used per filesystem
+'''
+
+variable = true
+[filters]
+include = []
+exclude = [
+            "^/boot$",
+            "^/dev$",
+            "^/dev/shm$",
+            "^/run/user",
+            "^/sys/fs/cgroup$"
+        ]
+
+
+[configs.utilization]
+variable = true
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [],
+    "description": "Filesystem space used and inodes used.",
+    "guides": [],
+    "line_style": "interpolated",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": "100",
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": null,
+    "min_right_y": null,
+    "notes": null,
+    "style": "line",
+    "tags": [],
+    "title": "{{.HostName}} {{.Item}} %Used"
+}
+'''
+datapoints = [
+{
+    variable = false,
+    metric_regex = "fs`([^`]+)`df_used_percent",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "check_id": {{.CheckID}},
+        "color": "#657aa6",
+        "data_formula": null,
+        "derive": "gauge",
+        "hidden": false,
+        "legend_formula": null,
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "%Used (bytes)",
+        "stack": null
+    }
+    '''
+},
+{
+    variable = false,
+    metric_regex = "fs`([^`]+)`df_used_inode_percent",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "check_id": {{.CheckID}},
+        "color": "#4fa18e",
+        "data_formula": null,
+        "derive": "gauge",
+        "hidden": false,
+        "legend_formula": null,
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "%Used (inode)",
+        "stack": null
+    }
+    '''
+}
+]

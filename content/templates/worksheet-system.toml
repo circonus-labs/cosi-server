@@ -1,0 +1,20 @@
+type = "worksheet"
+name = "system"
+version = "1.0.0"
+
+description = '''
+generic system worksheet template
+'''
+
+[configs.system]
+template = '''
+{
+    "description": "COSI worksheet for {{.HostName}}",
+    "favorite": false,
+    "graphs": [],
+    "notes": null,
+    "smart_queries": null,
+    "tags": [],
+    "title": "COSI {{.HostName}}"
+}
+'''

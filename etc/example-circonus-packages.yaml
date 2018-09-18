@@ -1,0 +1,160 @@
+---
+# dist: the OS distribution
+# vers: the dist version
+# type: the dist OS type
+# arch: the system architecture
+# package_info: defines name and where to get agent package
+#   package_url: base url if not the default (e.g. --package-url=http://updates.circonus.net/node-agent/packages)
+#   package_file: added to package_url to retrieve the agent package
+#   publisher_url: for pkg based OS (e.g. OmniOS)
+#   publisher_name: for pkg based OS (e.g. OmniOS)
+#   package_name: for pkg based OS (e.g. OmniOS), name of agent package to install (from publisher)
+#
+# if package_file and package_name are not defined the entry is ignored
+# if package_url is not defined, the default will be used
+
+- dist: Ubuntu
+  vers: '16.04'
+  arch: x86_64
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-2.6.0-1.ubuntu.16.04_amd64.deb
+
+- dist: Ubuntu
+  vers: '14.04'
+  arch: i386
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-2.6.0-1.ubuntu.14.04_i386.deb
+
+- dist: Ubuntu
+  vers: '14.04'
+  arch: x86_64
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-2.6.0-1.ubuntu.14.04_amd64.deb
+
+# dist version is EOL, agent version locked
+- dist: Ubuntu
+  vers: '12.04'
+  arch: i386
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-20170224T192505Z-1.ubuntu.12.04_i386.deb
+
+# dist version is EOL, agent version locked
+- dist: Ubuntu
+  vers: '12.04'
+  arch: x86_64
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-20170224T192505Z-1.ubuntu.12.04_amd64.deb
+
+- dist: debian
+  vers: 9
+  arch: x86_64
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-2.6.0-1.ubuntu.16.04_amd64.deb
+
+- dist: debian
+  vers: 8
+  arch: x86_64
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-2.6.0-1.ubuntu.16.04_amd64.deb
+
+- dist: debian
+  vers: 7
+  arch: x86_64
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-2.6.0-1.ubuntu.12.04_amd64.deb
+
+- dist: CentOS
+  vers: 7
+  arch: x86_64
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-2.6.0-1.el7.x86_64.rpm
+
+- dist: CentOS
+  vers: 6
+  arch: x86_64
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-2.6.0-1.el6.x86_64.rpm
+
+- dist: CentOS
+  vers: 6
+  arch: i686
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-2.6.0-1.el6.i686.rpm
+
+# dist version is EOL, agent version locked
+- dist: CentOS
+  vers: 5
+  arch: x86_64
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-20170224T192505Z-1.el5.x86_64.rpm
+
+# dist version is EOL, agent version locked
+- dist: CentOS
+  vers: 5
+  arch: i386
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-20170224T192505Z-1.el5.i386.rpm
+
+- dist: RedHat
+  vers: 7
+  arch: x86_64
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-2.6.0-1.el7.x86_64.rpm
+
+- dist: RedHat
+  vers: 6
+  arch: x86_64
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-2.6.0-1.el6.x86_64.rpm
+
+- dist: Oracle
+  vers: 7
+  arch: x86_64
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-2.6.0-1.el7.x86_64.rpm
+
+- dist: amzn
+  vers: '2017.03'
+  arch: x86_64
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-2.6.0-1.el6.x86_64.rpm
+
+- dist: amzn
+  vers: '2016.03'
+  arch: x86_64
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-2.6.0-1.el6.x86_64.rpm
+
+- dist: OmniOS
+  vers: '151014'
+  arch: amd64
+  type: Solaris
+  package_info:
+    publisher_url: http://updates.circonus.net/omnios/r151014/
+    publisher_name: circonus
+    package_name: field/nad
+
+- dist: FreeBSD
+  vers: '11.0'
+  arch: amd64
+  type: BSD
+  package_info:
+    package_file: nad-omnibus-2.6.0-freebsd.11.0-amd64.tar.gz

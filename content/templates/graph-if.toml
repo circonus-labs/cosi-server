@@ -1,0 +1,407 @@
+type = "graph"
+name = "if"
+version = "1.0.0"
+
+description = '''
+Network interface tx/rx and errors
+'''
+
+variable = true
+
+[filters]
+include = []
+exclude = [
+    "^lo0?$"
+]
+
+[configs.bps]
+variable = true
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [],
+    "description": "Network interface tx/rx bps for {{.Item}}",
+    "guides": [],
+    "line_style": "interpolated",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": null,
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": null,
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": ["network:bandwidth"],
+    "title": "{{.HostName}} {{.Item}} bps"
+}
+'''
+datapoints = [
+{
+    variable = false,
+    metric_regex = "if`([^`]+)`in_bytes",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "check_id": {{.CheckID}},
+        "color": "#657aa6",
+        "data_formula": "=VAL*8",
+        "derive": "counter",
+        "hidden": false,
+        "legend_formula": "=round(auto(VAL,2))",
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "rx bps",
+        "stack": null
+    }
+    '''
+},
+{
+    variable = false,
+    metric_regex = "if`([^`]+)`out_bytes",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "check_id": {{.CheckID}},
+        "color": "#4fa18e",
+        "data_formula": "=-1 * (VAL * 8)",
+        "derive": "counter",
+        "hidden": false,
+        "legend_formula": "=round(auto(VAL,2))",
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "tx bps",
+        "stack": null
+    }
+    '''
+}
+]
+
+[configs.errors]
+variable = true
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [],
+    "description": "Network interface errors for {{.Item}}",
+    "guides": [],
+    "line_style": "interpolated",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": null,
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": null,
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": [],
+    "title": "{{.HostName}} {{.Item}} Errors"
+}
+'''
+datapoints = [
+{
+    variable = false,
+    metric_regex = "if`([^`]+)`in_errors",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "check_id": {{.CheckID}},
+        "color": "#657aa6",
+        "data_formula": "=-1 * VAL",
+        "derive": "counter",
+        "hidden": false,
+        "legend_formula": null,
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "rx errors",
+        "stack": null
+    }
+    '''
+},
+{
+    variable = false,
+    metric_regex = "if`([^`]+)`out_errors",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "check_id": {{.CheckID}},
+        "color": "#4fa18e",
+        "data_formula": null,
+        "derive": "counter",
+        "hidden": false,
+        "legend_formula": null,
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "tx errors",
+        "stack": null
+    }
+    '''
+}
+]
+
+[configs.utilization]
+variable = false
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [],
+    "description": "",
+    "guides": [],
+    "line_style": "interpolated",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": null,
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": null,
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": [ "use", "use:network-utilization"],
+    "title": "{{.HostName}} Network Utilization"
+}
+'''
+datapoints = [
+{
+    variable = true,
+    metric_regex = "if`([^`]+)`in_bytes",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "check_id": {{.CheckID}},
+        "color": "#657aa6",
+        "data_formula": "=-1 * (VAL*8)",
+        "derive": "counter",
+        "hidden": false,
+        "legend_formula": "=round(auto(VAL,2))",
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "",
+        "stack": {{.ItemIndex}}
+    }
+    '''
+},
+{
+    variable = true,
+    metric_regex = "if`([^`]+)`out_bytes",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "check_id": {{.CheckID}},
+        "color": "#446a9b",
+        "data_formula": "=VAL*8",
+        "derive": "counter",
+        "hidden": false,
+        "legend_formula": "=round(auto(VAL,2))",
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "",
+        "stack": {{.ItemIndex}}
+    }
+    '''
+}
+]
+
+[configs.saturation]
+variable = false
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#4e2f60",
+            "data_formula": null,
+            "derive": "counter",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "if`tcp'segments_retransmitted",
+            "metric_type": "numeric",
+            "name": "",
+            "stack": null
+        }
+    ],
+    "description": "",
+    "guides": [],
+    "line_style": "interpolated",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": null,
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": "0",
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": [ "use", "use:network-saturation"],
+    "title": "{{.HostName}} Network Saturation"
+}
+'''
+datapoints = [
+{
+    variable = true,
+    metric_regex = "if`([^`]+)`in_drop",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "caql": null,
+        "check_id": {{.CheckID}},
+        "color": "#8E69A2",
+        "data_formula": null,
+        "derive": "gauge",
+        "hidden": false,
+        "legend_formula": null,
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "",
+        "stack": null
+    }
+    '''
+},
+{
+    variable = true,
+    metric_regex = "if`([^`]+)`out_drop",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "caql": null,
+        "check_id": {{.CheckID}},
+        "color": "#8E69A2",
+        "data_formula": null,
+        "derive": "gauge",
+        "hidden": false,
+        "legend_formula": null,
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "",
+        "stack": null
+    }
+    '''
+},
+{
+    variable = true,
+    metric_regex = "if`([^`]+)`in_fifo_overrun",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "caql": null,
+        "check_id": {{.CheckID}},
+        "color": "#7a5b8c",
+        "data_formula": null,
+        "derive": "gauge",
+        "hidden": false,
+        "legend_formula": null,
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "",
+        "stack": null
+    }
+    '''
+},
+{
+    variable = true,
+    metric_regex = "if`([^`]+)`out_fifo_overrun",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "caql": null,
+        "check_id": {{.CheckID}},
+        "color": "#7a5b8c",
+        "data_formula": null,
+        "derive": "gauge",
+        "hidden": false,
+        "legend_formula": null,
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "",
+        "stack": null
+    }
+    '''
+}
+]
+
+[configs.errors2]
+variable = false
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [],
+    "description": "",
+    "guides": [],
+    "line_style": "interpolated",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": null,
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": "0",
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": [ "use", "use:network-errors" ],
+    "title": "{{.HostName}} Network Errors"
+}
+'''
+datapoints = [
+{
+    variable = true,
+    metric_regex = "if`([^`]+)`in_errors",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "caql": null,
+        "check_id": {{.CheckID}},
+        "color": "#943C5E",
+        "data_formula": null,
+        "derive": "gauge",
+        "hidden": false,
+        "legend_formula": null,
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "",
+        "stack": null
+    }
+    '''
+},
+{
+    variable = true,
+    metric_regex = "if`([^`]+)`out_errors",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "caql": null,
+        "check_id": {{.CheckID}},
+        "color": "#AF5779",
+        "data_formula": null,
+        "derive": "gauge",
+        "hidden": false,
+        "legend_formula": null,
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "",
+        "stack": null
+    }
+    '''
+}
+]

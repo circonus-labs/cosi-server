@@ -1,0 +1,176 @@
+type = "graph"
+name = "vm"
+version = "1.0.0"
+
+description = '''
+Memory utilization and saturation
+'''
+
+[configs.utilization]
+template = '''
+{
+    "access_keys": [],
+    "composites": [
+        {
+            "axis": "l",
+            "color": "#657aa6",
+            "data_formula": "=D-A-B-C",
+            "hidden": false,
+            "legend_formula": "=round(bytes(VAL),2)",
+            "name": "vm`meminfo`MemUsed (computed)",
+            "stack": 0
+        },
+        {
+            "axis": "l",
+            "color": "#b5c52d",
+            "data_formula": "=C",
+            "hidden": false,
+            "legend_formula": "=round(bytes(VAL),2)",
+            "name": "vm`meminfo`MemFree",
+            "stack": 0
+        },
+        {
+            "axis": "l",
+            "color": "#94a024",
+            "data_formula": "=A",
+            "hidden": false,
+            "legend_formula": "=round(bytes(VAL),2)",
+            "name": "vm`meminfo`Buffers",
+            "stack": 0
+        },
+        {
+            "axis": "l",
+            "color": "#c9db32",
+            "data_formula": "=B",
+            "hidden": false,
+            "legend_formula": "=round(bytes(VAL),2)",
+            "name": "vm`meminfo`Caches",
+            "stack": 0
+        }
+    ],
+    "datapoints": [
+        {
+            "alpha" : "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color" : "#000000",
+            "data_formula" : null,
+            "derive": "gauge",
+            "hidden": true,
+            "legend_formula" : null,
+            "metric_name": "vm`meminfo`Buffers",
+            "metric_type" : "numeric",
+            "name" : "",
+            "stack" : null
+        },
+        {
+            "alpha" : "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color" : "#000000",
+            "data_formula" : null,
+            "derive": "gauge",
+            "hidden": true,
+            "legend_formula" : null,
+            "metric_name": "vm`meminfo`Cached",
+            "metric_type" : "numeric",
+            "name" : "",
+            "stack" : null
+        },
+        {
+            "alpha" : "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color" : "#000000",
+            "data_formula" : null,
+            "derive": "gauge",
+            "hidden": true,
+            "legend_formula" : null,
+            "metric_name": "vm`meminfo`MemFree",
+            "metric_type" : "numeric",
+            "name" : "",
+            "stack" : null
+        },
+        {
+            "alpha" : "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color" : "#000000",
+            "data_formula" : null,
+            "derive": "gauge",
+            "hidden": true,
+            "legend_formula" : null,
+            "metric_name": "vm`meminfo`MemTotal",
+            "metric_type" : "numeric",
+            "name" : "",
+            "stack" : null
+        }
+    ],
+    "description": "Memory Utilization",
+    "guides": [],
+    "line_style": "interpolated",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": null,
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": null,
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": [ "use", "use:memory-utilization" ],
+    "title": "{{.HostName}} Memory Utilization"
+}
+'''
+
+[configs.saturation]
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color": "#7B4D94",
+            "data_formula": null,
+            "derive": "gauge",
+            "hidden": false,
+            "legend_formula": "=round(bytes(VAL),2)",
+            "metric_name": "vm`swap`used",
+            "metric_type": "numeric",
+            "name": "",
+            "stack": 0
+        },
+        {
+            "alpha": "0.3",
+            "axis": "r",
+            "check_id": {{.CheckID}},
+            "color": "#693287",
+            "data_formula": null,
+            "derive": "counter",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "vm`info`page_scan",
+            "metric_type": "numeric",
+            "name": "",
+            "stack": 0
+        }
+    ],
+    "description": "Swap Utilization and Page Scanning Activity",
+    "guides": [],
+    "line_style": "interpolated",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": null,
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": null,
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": [ "use", "use:memory-saturation" ],
+    "title": "{{.HostName}} Memory Saturation"
+}
+'''

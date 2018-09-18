@@ -1,0 +1,8 @@
+---
+
+- dist: Ubuntu
+  vers: '16.04'
+  arch: x86_64
+  type: Linux
+  package_info:
+    package_file: nad-omnibus-2.6.0-1.ubuntu.16.04_amd64.deb

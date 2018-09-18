@@ -1,0 +1,145 @@
+type = "graph"
+name = "cassandra_gcstats"
+version = "1.0.0"
+
+description = '''
+Cassandra garbage collection stats
+'''
+
+[configs.gc_timing]
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#4fa18e",
+            "data_formula": null,
+            "derive": false,
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "cassandra_gcstats`max_gc_ms",
+            "metric_type": "numeric",
+            "name": "max gc ms",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#4fa18e",
+            "data_formula": null,
+            "derive": false,
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "cassandra_gcstats`total_gc_ms",
+            "metric_type": "numeric",
+            "name": "total gc ms",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#4fa18e",
+            "data_formula": null,
+            "derive": false,
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "cassandra_gcstats`stddev_gc_ms",
+            "metric_type": "numeric",
+            "name": "stddev gc ms",
+            "stack": null
+        }
+    ],
+    "description": "Cassandra garbage collection timing",
+    "guides": [],
+    "line_style": "stepped",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": null,
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": null,
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": ["database:cassandra", "cassandra:gc_timing"],
+    "title": "{{.HostName}} cassandra garbage collection timing"
+}
+'''
+
+[configs.gc_bytes]
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#4fa18e",
+            "data_formula": null,
+            "derive": false,
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "cassandra_gcstats`reclaimed_mb",
+            "metric_type": "numeric",
+            "name": "reclaimed_mb",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "r",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#4fa18e",
+            "data_formula": null,
+            "derive": false,
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "cassandra_gcstats`gc_collections_count",
+            "metric_type": "numeric",
+            "name": "garbage collection count",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#4fa18e",
+            "data_formula": null,
+            "derive": false,
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "cassandra_gcstats`direct_memory_bytes",
+            "metric_type": "numeric",
+            "name": "direct memory bytes",
+            "stack": null
+        }
+    ],
+    "description": "Cassandra garbage collection bytes",
+    "guides": [],
+    "line_style": "stepped",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": null,
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": null,
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": ["database:cassandra", "cassandra:gc_bytes"],
+    "title": "{{.HostName}} cassandra garbage collection bytes"
+}
+'''

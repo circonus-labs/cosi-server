@@ -1,0 +1,7 @@
+---
+
+- dist: Ubuntu
+  vers: '16.04'
+  arch: x86_64
+  type: Linux
+  package_info:

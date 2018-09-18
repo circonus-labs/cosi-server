@@ -1,0 +1,160 @@
+type = "graph"
+name = "pg_table_stats"
+version = "1.0.0"
+
+description = '''
+Postgres IUD plus scans tracker
+'''
+
+[configs.transactions]
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#4fa18e",
+            "data_formula": null,
+            "derive": "counter",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "pg_table_stats`inserts",
+            "metric_type": "numeric",
+            "name": "inserts",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#657aa6",
+            "data_formula": null,
+            "derive": "counter",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "pg_table_stats`updates",
+            "metric_type": "numeric",
+            "name": "updates",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#b5c52d",
+            "data_formula": null,
+            "derive": "counter",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "pg_table_stats`deletes",
+            "metric_type": "numeric",
+            "name": "deletes",
+            "stack": null
+        }
+    ],
+    "description": "",
+    "guides": [],
+    "line_style": "stepped",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": null,
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": null,
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": ["database:postgres", "database:transactions"],
+    "title": "{{.HostName}} table stats"
+}
+'''
+
+[configs.scans]
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [
+        {
+            "alpha": "0.3",
+            "axis": "r",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#4fa18e",
+            "data_formula": null,
+            "derive": "derive",
+            "hidden": false
+            "legend_formula": null,
+            "metric_name": "pg_table_stats`index_scans",
+            "metric_type": "numeric",
+            "name": "index scans",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#657aa6",
+            "data_formula": null,
+            "derive": "derive",
+            "hidden": false
+            "legend_formula": null,
+            "metric_name": "pg_table_stats`index_tup_fetch",
+            "metric_type": "numeric",
+            "name": "index tuple fetches",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "r",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#b5c52d",
+            "data_formula": null,
+            "derive": "derive",
+            "hidden": false
+            "legend_formula": null,
+            "metric_name": "pg_table_stats`seq_scans",
+            "metric_type": "numeric",
+            "name": "sequence scans",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#8e69a2",
+            "data_formula": null,
+            "derive": "derive",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "pg_table_stats`seq_tup_read",
+            "metric_type": "numeric",
+            "name": "sequence tuple reads",
+            "stack": null
+        }
+    ],
+    "description": "",
+    "guides": [],
+    "line_style": "stepped",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": null,
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": "0",
+    "min_right_y": "0",
+    "notes": null,
+    "style": "area",
+    "tags": ["database:postgres", "database:scans"],
+    "title": "{{.HostName}} seq/index scans"
+}
+'''

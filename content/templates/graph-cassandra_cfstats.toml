@@ -1,0 +1,121 @@
+type = "graph"
+name = "cassandra_cfstats"
+version = "1.0.0"
+
+description = '''
+Column family statistics in Cassandra
+'''
+
+variable = true
+
+[filter]
+include = []
+exclude = []
+
+[configs.cfstats]
+variable = true
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [],
+    "description": "Column Family stats for the {{.Item}} CF",
+    "guides": [],
+    "line_style": "interpolated",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": null,
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": null,
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": ["database:cassandra", "cassandra:cfstats:{{.Item}}"],
+    "title": "{{.HostName}} Cassandra {{.Item}} column family stats"
+}
+'''
+datapoints = [
+{
+    variable = false,
+    metric_regex = "cassandra_cfstats`([^`]+)`read_count",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "check_id": {{.CheckID}},
+        "color": "#657aa6",
+        "data_formula": "=VAL*8",
+        "derive": "counter",
+        "hidden": false,
+        "legend_formula": null,
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "read count",
+        "stack": null
+    }
+    '''
+},
+{
+    variable = false,
+    metric_regex = "cassandra_cfstats`([^`]+)`write_count",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "l",
+        "check_id": {{.CheckID}},
+        "color": "#4fa18e",
+        "data_formula": null,
+        "derive": "counter",
+        "hidden": false,
+        "legend_formula": null,
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "write count",
+        "stack": null
+    }
+    '''
+},
+{
+    variable = false,
+    metric_regex = "cassandra_cfstats`([^`]+)`read_latency",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "r",
+        "caql": null,
+        "check_id": {{.CheckID}},
+        "color": "#b5c52d",
+        "data_formula": null,
+        "derive": false,
+        "hidden": false,
+        "legend_formula": null,
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "read latency",
+        "stack": null
+    }
+    '''
+},
+{
+    variable = false,
+    metric_regex = "cassandra_cfstats`([^`]+)`write_latency",
+    template = '''
+    {
+        "alpha": "0.3",
+        "axis": "r",
+        "caql": null,
+        "check_id": {{.CheckID}},
+        "color": "#8e69a2",
+        "data_formula": null,
+        "derive": false,
+        "hidden": false,
+        "legend_formula": null,
+        "metric_name": "{{.MetricName}}",
+        "metric_type": "numeric",
+        "name": "write latency",
+        "stack": null
+    }
+    '''
+}
+]

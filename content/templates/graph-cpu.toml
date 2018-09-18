@@ -1,0 +1,166 @@
+type = "graph"
+name = "cpu"
+version = "1.0.0"
+
+description = '''
+CPU utilization
+'''
+
+[configs.utilization]
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#324f89",
+            "data_formula": null,
+            "derive": "counter",
+            "hidden": false,
+            "legend_formula": "=round(VAL,2)",
+            "metric_name": "cpu`kernel",
+            "name" : "",
+            "metric_type": "numeric",
+            "stack": 0
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#446a9b",
+            "data_formula": null,
+            "derive": "counter",
+            "hidden": false,
+            "legend_formula": "=round(VAL,2)",
+            "metric_name": "cpu`intr",
+            "name" : "",
+            "metric_type": "numeric",
+            "stack": 0
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#657aa6",
+            "data_formula": null,
+            "derive": "counter",
+            "hidden": false,
+            "legend_formula": "=round(VAL,2)",
+            "metric_name": "cpu`user",
+            "name" : "",
+            "metric_type": "numeric",
+            "stack": 0
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#94a024",
+            "data_formula": null,
+            "derive": "counter",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "cpu`wait_io",
+            "name" : "",
+            "metric_type": "numeric",
+            "stack": 0
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "caql": null,
+            "check_id": {{.CheckID}},
+            "color": "#b5c52d",
+            "data_formula": null,
+            "derive": "counter",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "cpu`idle",
+            "name" : "",
+            "metric_type": "numeric",
+            "stack": 0
+        }
+    ],
+    "description": "CPU utilization",
+    "guides": [],
+    "line_style": "stepped",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": "100",
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": "0",
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": [ "use", "use:cpu-utilization" ],
+    "title": "{{.HostName}} CPU Utilization"
+}
+'''
+
+[configs.saturation]
+template = '''
+{
+    "access_keys": [],
+    "composites": [],
+    "datapoints": [
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color": "#4e2f60",
+            "data_formula": "=(VAL-3)/{{.NumCPU}}",
+            "derive": "gauge",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "cpu`procs_runnable",
+            "metric_type": "numeric",
+            "name" : "cpu`procs_runnable (corrected, normalized)",
+            "stack": null
+        },
+        {
+            "alpha": "0.3",
+            "axis": "l",
+            "check_id": {{.CheckID}},
+            "color": "#8E69A2",
+            "data_formula": "=VAL/{{.NumCPU}}",
+            "derive": "gauge",
+            "hidden": false,
+            "legend_formula": null,
+            "metric_name": "loadavg`1",
+            "metric_type": "numeric",
+            "name" : "loadavg`1 (normalized)",
+            "stack": null
+        }
+    ],
+    "description": "System Load",
+    "guides": [
+        {
+            "color": "#000000",
+            "data_formula": "1",
+            "hidden": false,
+            "legend_formula": null,
+            "name": "Saturation threshold"
+        }
+    ],
+    "line_style": "stepped",
+    "logarithmic_left_y": null,
+    "logarithmic_right_y": null,
+    "max_left_y": null,
+    "max_right_y": null,
+    "metric_clusters": [],
+    "min_left_y": "0",
+    "min_right_y": null,
+    "notes": null,
+    "style": "area",
+    "tags": [ "use", "use:cpu-saturation" ],
+    "title": "{{.HostName}} System Load"
+}
+'''
