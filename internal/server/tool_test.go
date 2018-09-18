@@ -50,9 +50,9 @@ func TestTool(t *testing.T) {
 		{"GET", map[string]string{}, "/tool/?type=Linux", http.StatusBadRequest, "invalid system 'dist' specified"},
 		{"GET", map[string]string{}, "/tool/?type=Linux&dist=Ubuntu", http.StatusBadRequest, "invalid system 'vers' specified"},
 		{"GET", map[string]string{}, "/tool/?type=Linux&dist=Ubuntu&vers=16.04", http.StatusBadRequest, "invalid system 'arch' specified"},
-		{"GET", map[string]string{}, "/tool/?type=Linux&dist=Ubuntu&vers=16.04&arch=x86_64", http.StatusTemporaryRedirect, `/v0.0.0/cosi-tool_0.0.0_linux_64-bit.tar.gz`},
-		{"GET", map[string]string{"Accept": "application/json"}, "/tool/?type=Linux&dist=Ubuntu&vers=16.04&arch=x86_64", http.StatusTemporaryRedirect, `/v0.0.0/cosi-tool_0.0.0_linux_64-bit.tar.gz`},
-		{"GET", map[string]string{"Accept": "*/*"}, "/tool/?type=Linux&dist=Ubuntu&vers=16.04&arch=x86_64", http.StatusTemporaryRedirect, `/v0.0.0/cosi-tool_0.0.0_linux_64-bit.tar.gz`},
+		{"GET", map[string]string{}, "/tool/?type=Linux&dist=Ubuntu&vers=16.04&arch=x86_64", http.StatusTemporaryRedirect, `/v0.0.0/cosi-tool_0.0.0_linux_x86_64.tar.gz`},
+		{"GET", map[string]string{"Accept": "application/json"}, "/tool/?type=Linux&dist=Ubuntu&vers=16.04&arch=x86_64", http.StatusTemporaryRedirect, `/v0.0.0/cosi-tool_0.0.0_linux_x86_64.tar.gz`},
+		{"GET", map[string]string{"Accept": "*/*"}, "/tool/?type=Linux&dist=Ubuntu&vers=16.04&arch=x86_64", http.StatusTemporaryRedirect, `/v0.0.0/cosi-tool_0.0.0_linux_x86_64.tar.gz`},
 	}
 
 	for _, tst := range tt {
