@@ -18,4 +18,6 @@ Circonus One Step Install (cosi) is comprised of two separate pieces.
 1. Download from [latest release](https://github.com/circonus-labs/cosi-server/releases/latest)
 1. Create an installation directory (e.g. `mkdir -p /opt/circonus/cosi-server`)
 1. Unpack release archive into installation directory
-1. See `sbin/cosi-serverd --help` and `etc/example-cosi-server.yaml` for help configuring
+1. See `sbin/cosi-serverd --help`
+    1. Configure `etc/example-cosi-server.yaml` (edit, rename `cosi-server.yaml`)
+    1. Configure `etc/example-circonus-packages.yaml` (edit, rename `circonus-packages.yaml`)
