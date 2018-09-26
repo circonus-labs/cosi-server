@@ -18,130 +18,77 @@
   arch: x86_64
   type: Linux
   package_info:
-    package_file: nad-omnibus-2.6.0-1.ubuntu.16.04_amd64.deb
-
-- dist: Ubuntu
-  vers: '14.04'
-  arch: i386
-  type: Linux
-  package_info:
-    package_file: nad-omnibus-2.6.0-1.ubuntu.14.04_i386.deb
+    package_file: circonus-agent-0.17.1-1.ubuntu.16.04_x86_64.deb
 
 - dist: Ubuntu
   vers: '14.04'
   arch: x86_64
   type: Linux
   package_info:
-    package_file: nad-omnibus-2.6.0-1.ubuntu.14.04_amd64.deb
-
-# dist version is EOL, agent version locked
-- dist: Ubuntu
-  vers: '12.04'
-  arch: i386
-  type: Linux
-  package_info:
-    package_file: nad-omnibus-20170224T192505Z-1.ubuntu.12.04_i386.deb
-
-# dist version is EOL, agent version locked
-- dist: Ubuntu
-  vers: '12.04'
-  arch: x86_64
-  type: Linux
-  package_info:
-    package_file: nad-omnibus-20170224T192505Z-1.ubuntu.12.04_amd64.deb
+    package_file: circonus-agent-0.17.1-1.ubuntu.14.04_x86_64.deb
 
 - dist: debian
   vers: 9
   arch: x86_64
   type: Linux
   package_info:
-    package_file: nad-omnibus-2.6.0-1.ubuntu.16.04_amd64.deb
+    package_file: circonus-agent-0.17.1-1.ubuntu.16.04_x86_64.deb
 
 - dist: debian
   vers: 8
   arch: x86_64
   type: Linux
   package_info:
-    package_file: nad-omnibus-2.6.0-1.ubuntu.16.04_amd64.deb
-
-- dist: debian
-  vers: 7
-  arch: x86_64
-  type: Linux
-  package_info:
-    package_file: nad-omnibus-2.6.0-1.ubuntu.12.04_amd64.deb
+    package_file: circonus-agent-0.17.1-1.ubuntu.16.04_x86_64.deb
 
 - dist: CentOS
   vers: 7
   arch: x86_64
   type: Linux
   package_info:
-    package_file: nad-omnibus-2.6.0-1.el7.x86_64.rpm
+    package_file: circonus-agent-0.17.1-1.el7.centos.x86_64.rpm
 
 - dist: CentOS
   vers: 6
   arch: x86_64
   type: Linux
   package_info:
-    package_file: nad-omnibus-2.6.0-1.el6.x86_64.rpm
-
-- dist: CentOS
-  vers: 6
-  arch: i686
-  type: Linux
-  package_info:
-    package_file: nad-omnibus-2.6.0-1.el6.i686.rpm
-
-# dist version is EOL, agent version locked
-- dist: CentOS
-  vers: 5
-  arch: x86_64
-  type: Linux
-  package_info:
-    package_file: nad-omnibus-20170224T192505Z-1.el5.x86_64.rpm
-
-# dist version is EOL, agent version locked
-- dist: CentOS
-  vers: 5
-  arch: i386
-  type: Linux
-  package_info:
-    package_file: nad-omnibus-20170224T192505Z-1.el5.i386.rpm
+    package_file: circonus-agent-0.17.1-1.el6.x86_64.rpm
 
 - dist: RedHat
   vers: 7
   arch: x86_64
   type: Linux
   package_info:
-    package_file: nad-omnibus-2.6.0-1.el7.x86_64.rpm
+    package_file: circonus-agent-0.17.1-1.el7.centos.x86_64.rpm
 
 - dist: RedHat
   vers: 6
   arch: x86_64
   type: Linux
   package_info:
-    package_file: nad-omnibus-2.6.0-1.el6.x86_64.rpm
+    package_file: circonus-agent-0.17.1-1.el6.x86_64.rpm
 
 - dist: Oracle
   vers: 7
   arch: x86_64
   type: Linux
   package_info:
-    package_file: nad-omnibus-2.6.0-1.el7.x86_64.rpm
+    package_file: circonus-agent-0.17.1-1.el7.centos.x86_64.rpm
 
 - dist: amzn
   vers: '2017.03'
   arch: x86_64
   type: Linux
   package_info:
-    package_file: nad-omnibus-2.6.0-1.el6.x86_64.rpm
+    package_file: circonus-agent-0.17.1-1.el6.x86_64.rpm
 
 - dist: amzn
   vers: '2016.03'
   arch: x86_64
   type: Linux
   package_info:
-    package_file: nad-omnibus-2.6.0-1.el6.x86_64.rpm
+    package_file: circonus-agent-0.17.1-1.el6.x86_64.rpm
 
 - dist: OmniOS
   vers: '151014'
@@ -157,4 +104,4 @@
   arch: amd64
   type: BSD
   package_info:
-    package_file: nad-omnibus-2.6.0-freebsd.11.0-amd64.tar.gz
+    package_file: circonus-agent-0.17.1-1.freebsd.11.2_amd64.tgz
