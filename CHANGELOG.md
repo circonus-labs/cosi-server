@@ -1,3 +1,8 @@
+# v0.4.1
+
+* upd: example circonus-packages to use circonus-agent instead of nad
+* upd: dependencies
+
 # v0.4.0
 
 * upd: release file names use x86_64, facilitate automated builds and testing
