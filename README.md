@@ -21,3 +21,5 @@ Circonus One Step Install (cosi) is comprised of two separate pieces.
 1. See `sbin/cosi-serverd --help`
     1. Configure `etc/example-cosi-server.yaml` (edit, rename `cosi-server.yaml`)
     1. Configure `etc/example-circonus-packages.yaml` (edit, rename `circonus-packages.yaml`)
+
+Unless otherwise noted, the source files are distributed under the BSD-style license found in the [LICENSE](LICENSE) file.
