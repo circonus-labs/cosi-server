@@ -21,7 +21,7 @@ After modifying the command it will use the new cosi version to install the circ
 The circonus-agent is comprised of:
 
   * replacement for NAD, written in go, with builtin plugins for the common metrics needed for cosi visuals (graphs, worksheets, & dashboards)
-  * includes (if OS supports) [protocol_observer](https://github.com/circonus-labs/wirelatency/protocol_observer), no longer needs to be built/installed manually
+  * includes (if OS supports) [protocol_observer](https://github.com/circonus-labs/wirelatency), no longer needs to be built/installed manually
   * includes (if OS supports) [circonus-logwatch](https://github.com/circonus-labs/circonus-logwatch), no longer needs to be installed manually
   * includes OS/version/architecture-specific NAD plugins (non-javascript only) -- **Note:** the circonus-agent is **not** capable of using NAD _native plugins_ since they require NodeJS
 
