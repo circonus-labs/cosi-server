@@ -20,24 +20,24 @@ After modifying the command it will use the new cosi version to install the circ
 
 The circonus-agent is comprised of:
 
-* replacement for NAD, written in go, with builtin plugins for the common metrics needed for cosi visuals (graphs, worksheets, & dashboards)
-* includes (if OS supports) [protocol_observer](https://github.com/circonus-labs/wirelatency/protocol_observer), no longer needs to be built/installed manually
-* includes (if OS supports) [circonus-logwatch](https://github.com/circonus-labs/circonus-logwatch), no longer needs to be installed manually
-* includes OS/version/architecture-specific NAD plugins (non-javascript only) -- **Note:** the circonus-agent is **not** capable of using NAD _native plugins_ since they require NodeJS
+  * replacement for NAD, written in go, with builtin plugins for the common metrics needed for cosi visuals (graphs, worksheets, & dashboards)
+  * includes (if OS supports) [protocol_observer](https://github.com/circonus-labs/wirelatency/protocol_observer), no longer needs to be built/installed manually
+  * includes (if OS supports) [circonus-logwatch](https://github.com/circonus-labs/circonus-logwatch), no longer needs to be installed manually
+  * includes OS/version/architecture-specific NAD plugins (non-javascript only) -- **Note:** the circonus-agent is **not** capable of using NAD _native plugins_ since they require NodeJS
 
 The cosi-tool does **not** currently include a functional `cosi plugin` command. This capability will be included in a future release, as the individual `cosi plugin ...` sub-commands (postgres and cassandra) are completed.
 
 Supported Operating Systems (x86_64 and/or amd64):
 
-* RHEL7 (CentOS, RedHat, Oracle)
-* RHEL6 (CentOS, RedHat, amzn)
-* Ubuntu18
-* Ubuntu16
-* Ubuntu14
-* Debian9
-* Debian8
-* FreeBSD 12
-* FreeBSD 11
+  * RHEL7 (CentOS, RedHat, Oracle)
+  * RHEL6 (CentOS, RedHat, amzn)
+  * Ubuntu18
+  * Ubuntu16
+  * Ubuntu14
+  * Debian9
+  * Debian8
+  * FreeBSD 12
+  * FreeBSD 11
 
 Please continue to use the original cosi(w/NAD) for OmniOS and Raspian - cosi v2 support for these is TBD. Note: after installing NAD a binary circonus-agent can be used as a drop-in replacement (configure circonus-agent _plugins directory_ to be NAD plugins directory -- javascript plugins will not function). Binaries for OmniOS (`solaris_x86_64`) and Raspian (`linux_arm`) are available in the [circonus-agent repository](https://github.com/circonus-labs/circonus-agent/releases/latest).
 
