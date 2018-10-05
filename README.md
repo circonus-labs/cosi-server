@@ -19,6 +19,7 @@ curl -sSL https://setup.circonus.com/install | bash \
 After modifying the command it will use the new cosi version to install the circonus-agent.
 
 The circonus-agent is comprised of:
+
     * replacement for NAD, written in go, with builtin plugins for the common metrics needed for cosi visuals (graphs, worksheets, & dashboards)
     * includes (if OS supports) [protocol_observer](https://github.com/circonus-labs/wirelatency/protocol_observer), no longer needs to be built/installed manually
     * includes (if OS supports) [circonus-logwatch](https://github.com/circonus-labs/circonus-logwatch), no longer needs to be installed manually
@@ -27,6 +28,7 @@ The circonus-agent is comprised of:
 The cosi-tool does **not** currently include a functional `cosi plugin` command. This capability will be included in a future release, as the individual `cosi plugin ...` sub-commands (postgres and cassandra) are completed.
 
 Supported Operating Systems (x86_64 and/or amd64):
+
     * RHEL7 (CentOS, RedHat, Oracle)
     * RHEL6 (CentOS, RedHat, amzn)
     * Ubuntu18
