@@ -1,8 +1,4 @@
-# PRE-RELEASE
-
-# Preview
-
----
+# PRE-RELEASE Preview
 
 A _pre-release preview_ of cosi w/[circonus-agent](https://github.com/circonus-labs/circonus-agent) is now available.
 
