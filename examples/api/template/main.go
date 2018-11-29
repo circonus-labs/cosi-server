@@ -52,7 +52,7 @@ func showTemplate(c *api.Client, id *string) error {
 		return err
 	}
 
-	tcfg, err := json.MarshalIndent(t.Config, "", "    ")
+	tcfg, err := json.MarshalIndent(t.Configs, "", "    ")
 	if err != nil {
 		return errors.Wrap(err, "formatting template config")
 	}
@@ -63,33 +63,27 @@ func showTemplate(c *api.Client, id *string) error {
 	fmt.Printf("Name       : %s\n", t.Name)
 	fmt.Printf("Version    : %s\n", t.Version)
 	fmt.Printf("Description: %s\n", t.Description)
-	if len(t.Notes) > 0 {
-		fmt.Println("Notes      :")
-		for _, note := range t.Notes {
-			fmt.Println("\t", note)
-		}
-	}
 
 	if t.Type == "graph" {
-		fmt.Printf("Variable   : %v\n", t.VariableMetrics)
-		if t.VariableMetrics {
+		fmt.Printf("Variable   : %v\n", t.Variable)
+		if t.Variable {
 			fmt.Println("Filters    :")
-			if len(t.Filters.Include) > 0 {
+			if len(t.Filter.Include) > 0 {
 				fmt.Println("\tInclude:")
-				for _, f := range t.Filters.Include {
+				for _, f := range t.Filter.Include {
 					fmt.Println("\t\t", f)
 				}
 			}
-			if len(t.Filters.Exclude) > 0 {
+			if len(t.Filter.Exclude) > 0 {
 				fmt.Println("\tExclude:")
-				for _, f := range t.Filters.Exclude {
+				for _, f := range t.Filter.Exclude {
 					fmt.Println("\t\t", f)
 				}
 			}
 		}
 	}
 
-	fmt.Println("Config(s)  :", string(tcfg))
+	fmt.Println("Config(s)  :", tcfg)
 
 	return nil
 }
