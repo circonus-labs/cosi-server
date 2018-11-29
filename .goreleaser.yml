@@ -53,7 +53,7 @@ release:
         owner: circonus-labs
         name: cosi-server
 
-    prerelease: true
+    prerelease: false
     draft: false
     name_template: "{{.ProjectName}}-v{{.Version}}"
 
