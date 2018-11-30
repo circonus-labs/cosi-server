@@ -25,7 +25,7 @@ Options
 
   --app           Circonus API app name (authorized w/key) Default: cosi
 
-  [--cosiurl]     COSI URL Default: https://onestep.circonus.com/
+  [--cosiurl]     COSI URL Default: https://setup.circonus.com/
 
   [--apiurl]      Circonus API URL Default: https://api.circonus.com/
 
@@ -818,7 +818,7 @@ cosi_initialize() {
     : ${cosi_broker_id:=}
     : ${cosi_broker_type:=any}
     : ${cosi_save_config_flag:=0}
-    : ${cosi_url:=https://onestep.circonus.com/}
+    : ${cosi_url:=https://setup.circonus.com/}
     : ${cosi_api_url:=https://api.circonus.com/}
     : ${cosi_api_key:=}
     : ${cosi_api_app:=cosi}
