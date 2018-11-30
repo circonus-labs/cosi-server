@@ -1,3 +1,7 @@
+# v0.4.3
+
+* upd: default cosiurl to setup.circonus.com
+
 # v0.4.2
 
 * upd: dependencies (yaml)
