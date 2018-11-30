@@ -1,3 +1,8 @@
+# v0.4.2
+
+* upd: dependencies (yaml)
+* upd: api example
+
 # v0.4.1
 
 * upd: example circonus-packages to use circonus-agent instead of nad
