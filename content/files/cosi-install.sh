@@ -994,7 +994,7 @@ cosi_register() {
         echo
         local agent_bin="${agent_dir}/sbin/circonus-agentd"
         if [[ -x $agent_bin ]]; then
-            $agent_bin --reverse --check-id="cosi" --api-key="cosi" --api-app="cosi" --show-config=yaml > $agent_dir/etc/circonus-agent.yaml
+            $agent_bin --reverse --check-id="cosi" --api-key="cosi" --api-app="cosi" --check-metric-streamtags --check-tags="os:${cosi_os_type},arch:${cosi_os_arch},distro:${cosi_os_dist}-${cosi_os_vers}" --show-config=yaml > $agent_dir/etc/circonus-agent.yaml
             [[ $? -eq 0 ]] || fail "Error updating circonus-agent configuration"
             __restart_agent
         fi
