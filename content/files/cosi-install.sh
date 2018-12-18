@@ -51,6 +51,8 @@ Options
                   will *${BOLD}require${NORMAL}* that the system be manually registered.
                   Default: register system (creating check, graphs, and worksheet)
 
+  [--timeout]     Set timeout for curl operations (default: 120 seconds)
+
   [--help]        This message
 
   [--trace]       Enable tracing, output debugging messages
@@ -181,6 +183,14 @@ __parse_parameters() {
         (--trace)
             set -o xtrace
             cosi_trace_flag=1
+            ;;
+        (--timeout)
+            if [[ -n "${1:-}" && "$1" =~ ^\d+$ ]]; then
+                cosi_curl_timeout="$1"
+                shift
+            else
+                fail "--timeout must be followed by a value, number of seconds."
+            fi
             ;;
         (--help)
             usage
@@ -371,7 +381,7 @@ __lookup_os() {
     #
     set +o errexit
 
-    curl_result=$(\curl -m 15 -H 'Accept: text/plain' -sS -w '|%{http_code}' "$request_url" 2>&1)
+    curl_result=$(\curl -m $cosi_curl_timeout -H 'Accept: text/plain' -sS -w '|%{http_code}' "$request_url" 2>&1)
     cmd_result=$?
 
     set -o errexit
@@ -437,7 +447,7 @@ __download_package() {
         pass "\tFound existing ${local_package_file}, using it for the installation."
     else
         set +o errexit
-        \curl -m 120 -f "${package_url}" -o "${local_package_file}"
+        \curl -m $cosi_curl_timeout -f "${package_url}" -o "${local_package_file}"
         curl_err=$?
         set -o errexit
         [[ "$curl_err" == "0" && -f "${local_package_file}" ]] || fail "Unable to download '${package_url}' (curl exit code=${curl_err})."
@@ -724,7 +734,7 @@ __fetch_cosi_tool() {
     log_only "\tTool file: $cosi_tool_file"
 
     set +o errexit
-    \curl -m 15 -f -sSL "${cosi_tool_url}${cosi_url_args}" -o "${cosi_tool_file}"
+    \curl -m $cosi_curl_timeout -f -sSL "${cosi_tool_url}${cosi_url_args}" -o "${cosi_tool_file}"
     curl_err=$?
     set -o errexit
     [[ $curl_err -eq 0 && -f "$cosi_tool_file" ]] || {
@@ -826,6 +836,7 @@ cosi_initialize() {
     : ${cosi_install_agent:=1}
     : ${package_install_cmd:=}
     : ${package_install_args:=--install}
+    : ${cosi_curl_timeout:=120}
 
     # list of settings we will save if cosi_save_config_flag is ON
     settings_list=" \
