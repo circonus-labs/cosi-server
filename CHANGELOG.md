@@ -1,3 +1,9 @@
+# v0.5.0
+
+* upd: add a `--timeout` argument (for curl command) to installer, default: `--timeout 120`
+* upd: enable stream tags by default (circonus-agent v0.19.0+ required)
+* upd: dependencies
+
 # v0.4.3
 
 * upd: default cosiurl to setup.circonus.com
