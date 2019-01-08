@@ -709,13 +709,13 @@ api:
     app: "${cosi_api_app}"
     url: "${cosi_api_url}"
     ca_file: ""
-host:
-options_file: "${cosi_regopts_conf}"
-check_target: "${cosi_host_target}"
-group_id: "${cosi_group_id}"
-broker:
-    id: "${cosi_broker_id}"
-    type: "${cosi_broker_type}"
+checks:
+  target: "${cosi_host_target}"
+  group_id: ${cosi_group_id}
+  broker:
+    id: ${cosi_broker_id}
+    type: ${cosi_broker_type}
+reg_conf: "${cosi_regopts_conf}"
 log:
     level: info
     pretty: true
