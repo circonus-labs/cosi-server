@@ -660,7 +660,15 @@ __start_agent() {
     if [[ ${ret:-0} -eq 0 && ${agent_pid:-0} -gt 0 ]]; then
         pass "Agent running with PID ${agent_pid}"
     else
-        fail "Unable to locate running agent, pgrep exited with exit code ${ret}"
+        log "'pgrep -n -f \"sbin/circonus-agentd\"' exited with code (${ret})."
+        if [[ "${cosi_os_type}" == "Linux" ]]; then
+            if [[ ${ret:-0} -eq 1 ]]; then
+                log "Exit code ${ret} means more than one process was found."
+            elif [[ ${ret:-0} -eq 2 ]]; then
+                log "Exit code ${ret} means no process matched, after attempt to start."
+            fi
+        fi
+        fail "Unable to locate running agent, check agent log or run interactively '/opt/circonus/agent/sbin/circonus-agentd' for more information."
     fi
 }
 
@@ -701,13 +709,13 @@ api:
     app: "${cosi_api_app}"
     url: "${cosi_api_url}"
     ca_file: ""
-host:
-options_file: "${cosi_regopts_conf}"
-check_target: "${cosi_host_target}"
-group_id: "${cosi_group_id}"
-broker:
-    id: "${cosi_broker_id}"
-    type: "${cosi_broker_type}"
+checks:
+  target: "${cosi_host_target}"
+  group_id: ${cosi_group_id}
+  broker:
+    id: ${cosi_broker_id}
+    type: ${cosi_broker_type}
+reg_conf: "${cosi_regopts_conf}"
 log:
     level: info
     pretty: true
