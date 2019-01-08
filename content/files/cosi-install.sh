@@ -660,7 +660,15 @@ __start_agent() {
     if [[ ${ret:-0} -eq 0 && ${agent_pid:-0} -gt 0 ]]; then
         pass "Agent running with PID ${agent_pid}"
     else
-        fail "Unable to locate running agent, pgrep exited with exit code ${ret}"
+        log "'pgrep -n -f \"sbin/circonus-agentd\"' exited with code (${ret})."
+        if [[ "${cosi_os_type}" == "Linux" ]]; then
+            if [[ ${ret:-0} -eq 1 ]]; then
+                log "Exit code ${ret} means more than one process was found."
+            elif [[ ${ret:-0} -eq 2 ]]; then
+                log "Exit code ${ret} means no process matched, after attempt to start."
+            fi
+        fi
+        fail "Unable to locate running agent, check agent log or run interactively '/opt/circonus/agent/sbin/circonus-agentd' for more information."
     fi
 }
 
