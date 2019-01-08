@@ -1,3 +1,8 @@
+# v0.5.1
+
+* fix: option names in config file
+* upd: installer error message when process not found after start
+
 # v0.5.0
 
 * upd: add a `--timeout` argument (for curl command) to installer, default: `--timeout 120`
