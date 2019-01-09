@@ -985,6 +985,8 @@ cosi_register() {
     local cosi_register_cmd="register"
     local cosi_register_opt=""
     local install_reverse="${cosi_dir}/bin/reverse_install.sh"
+    local agent_config="$agent_dir/etc/circonus-agent.yaml"
+    local agent_bin="${agent_dir}/sbin/circonus-agentd"
 
     echo
     __fetch_cosi_tool
@@ -1000,23 +1002,26 @@ cosi_register() {
     [[ -x "$cosi_script" ]] || fail "Unable to find cosi command '${cosi_script}'"
 
     echo
+    log "### Creating base circonus-agent configuration"
+    echo
+    $agent_bin --check-metric-streamtags --check-tags="os:${cosi_os_type},arch:${cosi_os_arch},distro:${cosi_os_dist}-${cosi_os_vers}" --show-config=yaml > $agent_config
+    [[ $? -eq 0 ]] || fail "Error creating base circonus-agent configuration"
+    __restart_agent
+
+    echo
     log "### Running COSI registration ###"
     echo
     log_only "running: $cosi_script" "$cosi_register_cmd"
     "$cosi_script" "$cosi_register_cmd" | tee -a $cosi_install_log
     [[ ${PIPESTATUS[0]} -eq 0 ]] || fail "Errors encountered during registration."
 
-
     if [[ "${cosi_agent_mode}" == "reverse" ]]; then
         echo
         log "### Enabling ${cosi_agent_mode} mode for agent ###"
         echo
-        local agent_bin="${agent_dir}/sbin/circonus-agentd"
-        if [[ -x $agent_bin ]]; then
-            $agent_bin --reverse --check-id="cosi" --api-key="cosi" --api-app="cosi" --check-metric-streamtags --check-tags="os:${cosi_os_type},arch:${cosi_os_arch},distro:${cosi_os_dist}-${cosi_os_vers}" --show-config=yaml > $agent_dir/etc/circonus-agent.yaml
-            [[ $? -eq 0 ]] || fail "Error updating circonus-agent configuration"
-            __restart_agent
-        fi
+        $agent_bin --reverse --check-id="cosi" --api-key="cosi" --api-app="cosi" --show-config=yaml --check-metric-streamtags --check-tags="os:${cosi_os_type},arch:${cosi_os_arch},distro:${cosi_os_dist}-${cosi_os_vers}" > $agent_config
+        [[ $? -eq 0 ]] || fail "Error updating circonus-agent configuration"
+        __restart_agent
     fi
 
     echo
