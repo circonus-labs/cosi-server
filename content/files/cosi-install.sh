@@ -916,8 +916,7 @@ cosi_initialize() {
 
     hn=$(hostname)
     if [[ -z "${hn:-}" && -z "${cosi_host_target:-}" ]]; then
-        echo "cosi requires system hostname to be set or overridden with --target"
-        exit 1
+        fatal "cosi requires system hostname to be set or overridden with --target"
     fi
 
     #
@@ -1054,6 +1053,19 @@ cosi_register() {
 
 cosi_install() {
     cosi_initialize "$@"
+    #
+    # short circuit if NAD installation detected
+    #
+    if [[ -d "${base_dir}/nad" || -f "${base_dir}/sbin/nad.js" ]]; then
+        echo
+        echo
+        log "*** Previous NAD installation detected ***"
+        log "Please use the following crconus-agent installation instructions:"
+        log "https://github.com/circonus-labs/circonus-agent#quick-start"
+        echo
+        echo
+        exit
+    fi
     cosi_verify_os
     cosi_check_agent
     cosi_register
