@@ -27,10 +27,66 @@ import (
 	"github.com/circonus-labs/cosi-server/internal/templates"
 	"github.com/justinas/alice"
 	"github.com/pkg/errors"
+	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/hlog"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/viper"
 )
+
+// Server defines the listening servers
+type Server struct {
+	ctx                 context.Context
+	logger              zerolog.Logger
+	svrHTTP             []*httpServer
+	svrHTTPS            *sslServer
+	packageList         *packages.Packages
+	templates           *templates.Templates
+	info                string
+	typerx              *regexp.Regexp
+	distrx              *regexp.Regexp
+	versrx              *regexp.Regexp
+	vercleanrx          *regexp.Regexp
+	archrx              *regexp.Regexp
+	rhelrx              *regexp.Regexp
+	solarisrx           *regexp.Regexp
+	modepushrx          *regexp.Regexp
+	modepullrx          *regexp.Regexp
+	stats               *statsd.Client
+	templateContentType string
+}
+
+type httpServer struct {
+	address *net.TCPAddr
+	server  *http.Server
+}
+
+type sslServer struct {
+	address  *net.TCPAddr
+	certFile string
+	keyFile  string
+	server   *http.Server
+}
+
+// serverInfo is returned for a / request
+type serverInfo struct {
+	Description string   `json:"description"`
+	Supported   []string `json:"supported"`
+	Version     string   `json:"version"`
+}
+
+// params holds validated query parameters
+type params struct {
+	osType   string
+	osDistro string
+	osVers   string
+	sysArch  string
+}
+
+// templateSpec holds validated template information from url path
+type templateSpec struct {
+	Type string
+	Name string
+}
 
 func init() {
 	// for random broker selection
@@ -80,6 +136,12 @@ func New() (*Server, error) {
 		}
 
 		s.info = string(d)
+
+		if viper.GetBool(config.KeyLocalPackages) {
+			if err := updateLocalPackageIndex(viper.GetString(config.KeyLocalPackagePath)); err != nil {
+				return nil, errors.Wrap(err, "updating local package index")
+			}
+		}
 	}
 
 	// load templates
