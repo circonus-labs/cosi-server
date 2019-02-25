@@ -96,7 +96,7 @@ func writeIndex(pkgDir string, releases []Release) error {
     <ul>
     <li> <a href="https://github.com/circonus-labs/circonus-agent/releases/tag/v{{ .Version }}">release information</a></li>
     {{range .Packages}}
-    <li><a href="{{ . }}">{{ . }}</li>
+    <li><a href="{{ . }}">{{ . }}</a></li>
     {{end}}
     </ul>
     {{end}}
