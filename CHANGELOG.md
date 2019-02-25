@@ -1,3 +1,9 @@
+# v0.5.2
+
+* add: local package index.html management
+* upd: installer to exit when NAD install detected, with pointer to agent repo manual instructions
+* fix: ensure streamtags are enabled in agent before running registration
+
 # v0.5.1
 
 * fix: option names in config file
