@@ -1,3 +1,9 @@
+# v0.5.3
+
+* add: `host` as a default tag
+* upd: dependencies
+* fix: local package index template, close anchor tag in package links
+
 # v0.5.2
 
 * add: local package index.html management
