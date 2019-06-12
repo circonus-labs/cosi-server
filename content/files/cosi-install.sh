@@ -986,6 +986,7 @@ cosi_register() {
     local install_reverse="${cosi_dir}/bin/reverse_install.sh"
     local agent_config="$agent_dir/etc/circonus-agent.yaml"
     local agent_bin="${agent_dir}/sbin/circonus-agentd"
+    local cosi_host="${cosi_host_target:-$(hostname)}"
 
     echo
     __fetch_cosi_tool
@@ -1003,7 +1004,7 @@ cosi_register() {
     echo
     log "### Creating base circonus-agent configuration"
     echo
-    $agent_bin --check-metric-streamtags --check-tags="os:${cosi_os_type},arch:${cosi_os_arch},distro:${cosi_os_dist}-${cosi_os_vers}" --show-config=yaml > $agent_config
+    $agent_bin --check-metric-streamtags --check-tags="host:${cosi_host},os:${cosi_os_type},arch:${cosi_os_arch},distro:${cosi_os_dist}-${cosi_os_vers}" --show-config=yaml > $agent_config
     [[ $? -eq 0 ]] || fail "Error creating base circonus-agent configuration"
     __restart_agent
 
@@ -1018,7 +1019,7 @@ cosi_register() {
         echo
         log "### Enabling ${cosi_agent_mode} mode for agent ###"
         echo
-        $agent_bin --reverse --check-id="cosi" --api-key="cosi" --api-app="cosi" --show-config=yaml --check-metric-streamtags --check-tags="os:${cosi_os_type},arch:${cosi_os_arch},distro:${cosi_os_dist}-${cosi_os_vers}" > $agent_config
+        $agent_bin --listen=127.0.0.1:2609 --reverse --check-id=cosi --api-key=cosi --api-app=cosi --show-config=yaml --check-metric-streamtags --check-tags="host:${cosi_host},os:${cosi_os_type},arch:${cosi_os_arch},distro:${cosi_os_dist}-${cosi_os_vers}" > $agent_config
         [[ $? -eq 0 ]] || fail "Error updating circonus-agent configuration"
         __restart_agent
     fi
