@@ -1,3 +1,15 @@
+# v0.5.4
+
+* upd: handle pre-release packages in index builder
+* upd: dependencies
+* add: amzn 2 linux config
+* upd: strict linting
+* upd: build vars moved to release pkg
+* add: go tidy and lint before hooks
+* upd: config syntax for archives
+* add: illumos target
+* upd: rename/reorg release sub-pkg
+
 # v0.5.3
 
 * add: `host` as a default tag
