@@ -66,7 +66,7 @@ func (s *Server) template() http.Handler {
 
 				w.Header().Set("Content-Type", s.templateContentType)
 				w.WriteHeader(http.StatusOK)
-				w.Write(*t) // binary write, so % used in strings is not interpolated
+				_, _ = w.Write(*t) // binary write, so % used in strings is not interpolated
 				s.stats.Increment(fmt.Sprintf("%s`%d", r.URL.Path, http.StatusOK))
 			}),
 		nil)

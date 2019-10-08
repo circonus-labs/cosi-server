@@ -15,7 +15,7 @@ func TestInfo(t *testing.T) {
 	t.Log("invalid (json/parse)")
 	{
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			w.Write([]byte("invalid"))
+			_, _ = w.Write([]byte("invalid"))
 		}))
 		cfg := &Config{
 			OSType:    "test",
@@ -41,7 +41,7 @@ func TestInfo(t *testing.T) {
 	t.Log("valid")
 	{
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			w.Write([]byte(`{"description":"test","version":"test","supported":["foo","bar"]}`))
+			_, _ = w.Write([]byte(`{"description":"test","version":"test","supported":["foo","bar"]}`))
 		}))
 		cfg := &Config{
 			OSType:    "test",

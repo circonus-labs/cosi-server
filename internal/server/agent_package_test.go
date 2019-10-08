@@ -82,10 +82,8 @@ func TestAgentPackage(t *testing.T) {
 			if err != nil {
 				t.Fatalf("expected NO error, got %v", err)
 			}
-		} else {
-			if !bytes.Contains(body, []byte(tst.msg)) {
-				t.Fatalf("body missing '%s' (%s)", tst.msg, string(body))
-			}
+		} else if !bytes.Contains(body, []byte(tst.msg)) {
+			t.Fatalf("body missing '%s' (%s)", tst.msg, string(body))
 		}
 	}
 }

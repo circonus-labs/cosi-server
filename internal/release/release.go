@@ -5,6 +5,10 @@
 
 package release
 
+import (
+	"expvar"
+)
+
 const (
 	// NAME is the name of this application
 	NAME = "cosi-server"
@@ -31,4 +35,18 @@ type Info struct {
 	Commit    string
 	BuildDate string
 	Tag       string
+}
+
+func init() {
+	expvar.Publish("app", expvar.Func(info))
+}
+
+func info() interface{} {
+	return &Info{
+		Name:      NAME,
+		Version:   VERSION,
+		Commit:    COMMIT,
+		BuildDate: DATE,
+		Tag:       TAG,
+	}
 }

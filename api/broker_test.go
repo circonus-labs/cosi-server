@@ -17,22 +17,23 @@ func TestFetchBroker(t *testing.T) {
 	t.Log("Testing FetchBroker")
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if strings.Contains(r.URL.String(), "agent_mode=httptrap") {
-			w.Write([]byte(`{"broker_id":"httptrap"}`))
-		} else if strings.Contains(r.URL.String(), "agent_mode=push") {
-			w.Write([]byte(`{"broker_id":"httptrap"}`))
-		} else if strings.Contains(r.URL.String(), "agent_mode=trap") {
-			w.Write([]byte(`{"broker_id":"httptrap"}`))
-		} else if strings.Contains(r.URL.String(), "agent_mode=json") {
-			w.Write([]byte(`{"broker_id":"json"}`))
-		} else if strings.Contains(r.URL.String(), "agent_mode=pull") {
-			w.Write([]byte(`{"broker_id":"json"}`))
-		} else if strings.Contains(r.URL.String(), "agent_mode=reverse") {
-			w.Write([]byte(`{"broker_id":"json"}`))
-		} else if strings.Contains(r.URL.String(), "agent_mode=error") {
+		switch {
+		case strings.Contains(r.URL.String(), "agent_mode=httptrap"):
+			_, _ = w.Write([]byte(`{"broker_id":"httptrap"}`))
+		case strings.Contains(r.URL.String(), "agent_mode=push"):
+			_, _ = w.Write([]byte(`{"broker_id":"httptrap"}`))
+		case strings.Contains(r.URL.String(), "agent_mode=trap"):
+			_, _ = w.Write([]byte(`{"broker_id":"httptrap"}`))
+		case strings.Contains(r.URL.String(), "agent_mode=json"):
+			_, _ = w.Write([]byte(`{"broker_id":"json"}`))
+		case strings.Contains(r.URL.String(), "agent_mode=pull"):
+			_, _ = w.Write([]byte(`{"broker_id":"json"}`))
+		case strings.Contains(r.URL.String(), "agent_mode=reverse"):
+			_, _ = w.Write([]byte(`{"broker_id":"json"}`))
+		case strings.Contains(r.URL.String(), "agent_mode=error"):
 			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-		} else {
-			w.Write([]byte("invalid"))
+		default:
+			_, _ = w.Write([]byte("invalid"))
 		}
 	}))
 
@@ -77,10 +78,8 @@ func TestFetchBroker(t *testing.T) {
 				if err.Error() != tst.errorExpect.Error() {
 					t.Fatalf("unexpected error (%s) [%s]", err, tst.errorExpect)
 				}
-			} else {
-				if err != nil {
-					t.Fatalf("unexpected error (%s)", err)
-				}
+			} else if err != nil {
+				t.Fatalf("unexpected error (%s)", err)
 			}
 		})
 	}

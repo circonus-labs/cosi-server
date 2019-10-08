@@ -6,15 +6,15 @@
 package api
 
 import (
+	"fmt"
 	"io/ioutil"
 	"net/http"
-	"net/url"
 	"strings"
 
 	"github.com/pkg/errors"
 )
 
-func (c *Client) get(requrl *url.URL, hdrs *map[string]string) ([]byte, error) {
+func (c *Client) get(requrl fmt.Stringer, hdrs *map[string]string) ([]byte, error) {
 	if requrl == nil {
 		return nil, errors.New("invalid request url (nil)")
 	}

@@ -70,29 +70,29 @@ func genTestServer(t *testing.T) *httptest.Server {
 			if err != nil {
 				t.Fatalf("Fetching (%s) (%s)", r.URL.Path, err)
 			}
-			w.Write(data)
+			_, _ = w.Write(data)
 		case "/template/dashboard/system/":
 			data, err := ioutil.ReadFile(path.Join(templateDir, "linux", "dashboard-system"+TemplateFileExtension))
 			if err != nil {
 				t.Fatalf("Fetching (%s) (%s)", r.URL.Path, err)
 			}
-			w.Write(data)
+			_, _ = w.Write(data)
 		case "/template/graph/cpu/":
 			data, err := ioutil.ReadFile(path.Join(templateDir, "graph-cpu"+TemplateFileExtension))
 			if err != nil {
 				t.Fatalf("Fetching (%s) (%s)", r.URL.Path, err)
 			}
-			w.Write(data)
+			_, _ = w.Write(data)
 		case "/template/worksheet/system/":
 			data, err := ioutil.ReadFile(path.Join(templateDir, "worksheet-system"+TemplateFileExtension))
 			if err != nil {
 				t.Fatalf("Fetching (%s) (%s)", r.URL.Path, err)
 			}
-			w.Write(data)
+			_, _ = w.Write(data)
 		case "/template/json/syntax1/":
-			w.Write([]byte(`{"type":"foo", "id":"bar}`))
+			_, _ = w.Write([]byte(`{"type":"foo", "id":"bar}`))
 		default:
-			w.Write([]byte("invalid"))
+			_, _ = w.Write([]byte("invalid"))
 		}
 	}))
 }
