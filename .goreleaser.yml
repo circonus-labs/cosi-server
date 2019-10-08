@@ -1,5 +1,10 @@
 project_name: cosi-server
 
+before:
+    hooks:
+        - go mod tidy
+        - ./build_lint.sh
+
 builds:
     -
         main: main.go
@@ -17,6 +22,7 @@ builds:
             - windows
             - freebsd
             - solaris
+            - illumos
 
         goarch:
             - amd64
@@ -25,28 +31,35 @@ builds:
             -
                 goarch: 386
 
-        ldflags: -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.tag={{.Tag}}
+        ldflags:
+            - -X github.com/circonus-labs/cosi-server/internal/release.VERSION={{.Version}} 
+            - -X github.com/circonus-labs/cosi-server/internal/release.COMMIT={{.ShortCommit}} 
+            - -X github.com/circonus-labs/cosi-server/internal/release.DATE={{.Date}} 
+            - -X github.com/circonus-labs/cosi-server/internal/release.TAG={{.Tag}}
 
-archive:
-    name_template: "{{.ProjectName}}_{{.Version}}_{{.Os}}_{{.Arch}}"
 
-    format: tar.gz
+archives:
+    -
+        id: default
+        name_template: "{{.ProjectName}}_{{.Version}}_{{.Os}}_{{.Arch}}"
 
-    replacements:
-        amd64: x86_64
+        format: tar.gz
 
-    format_overrides:
-        -
-            goos: windows
-            format: zip
+        replacements:
+            amd64: x86_64
 
-    files:
-        - LICENSE
-        - README.md
-        - CHANGELOG.md
-        - etc/example-*
-        - service/*
-        - content/**/*
+        format_overrides:
+            -
+                goos: windows
+                format: zip
+
+        files:
+            - LICENSE
+            - README.md
+            - CHANGELOG.md
+            - etc/example-*
+            - service/*
+            - content/**/*
 
 release:
     github:
