@@ -17,14 +17,15 @@ func TestPackage(t *testing.T) {
 	t.Log("Testing Package")
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if strings.Contains(r.URL.String(), "CentOS") {
-			w.Write([]byte(`{"package_url":"http://updates.circonus.net/node-agent/packages/","package_file":"nad-omnibus-2.6.0-1.el7.x86_64.rpm"}`))
-		} else if strings.Contains(r.URL.String(), "OmniOS") {
-			w.Write([]byte(`{"publisher_url":"http://updates.circonus.net/omnios/r151014/","publisher_name":"circonus","package_name":"field/nad"}`))
-		} else if strings.Contains(r.URL.String(), "FreeBSD") {
-			w.Write([]byte(`{"package_url":"http://updates.circonus.net/node-agent/packages/","package_file":"nad-omnibus-2.6.0-freebsd.11.0-amd64.tar.gz"}`))
-		} else {
-			w.Write([]byte("invalid"))
+		switch {
+		case strings.Contains(r.URL.String(), "CentOS"):
+			_, _ = w.Write([]byte(`{"package_url":"http://updates.circonus.net/node-agent/packages/","package_file":"nad-omnibus-2.6.0-1.el7.x86_64.rpm"}`))
+		case strings.Contains(r.URL.String(), "OmniOS"):
+			_, _ = w.Write([]byte(`{"publisher_url":"http://updates.circonus.net/omnios/r151014/","publisher_name":"circonus","package_name":"field/nad"}`))
+		case strings.Contains(r.URL.String(), "FreeBSD"):
+			_, _ = w.Write([]byte(`{"package_url":"http://updates.circonus.net/node-agent/packages/","package_file":"nad-omnibus-2.6.0-freebsd.11.0-amd64.tar.gz"}`))
+		default:
+			_, _ = w.Write([]byte("invalid"))
 		}
 	}))
 

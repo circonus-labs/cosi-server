@@ -85,7 +85,7 @@ func TestGet(t *testing.T) {
 	t.Log("valid")
 	{
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			w.Write([]byte("valid"))
+			_, _ = w.Write([]byte("valid"))
 		}))
 		u, err := url.Parse(ts.URL)
 		if err != nil {
