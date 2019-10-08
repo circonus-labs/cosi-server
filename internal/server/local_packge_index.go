@@ -45,9 +45,7 @@ func scanPackages(pkgDir string) ([]Release, error) {
 		return nil, err
 	}
 
-	releases := []Release{}
-
-	packageFiles := map[string][]string{}
+	pf := []string{}
 	for _, fi := range fl {
 		if fi.IsDir() {
 			continue
@@ -56,28 +54,52 @@ func scanPackages(pkgDir string) ([]Release, error) {
 			continue
 		}
 
-		parts := strings.Split(fi.Name(), "-")
+		pf = append(pf, fi.Name())
+	}
+
+	return releases(pf)
+}
+
+func releases(packageFiles []string) ([]Release, error) {
+	if len(packageFiles) == 0 {
+		return nil, errors.New("invalid package file list (empty)")
+	}
+
+	pkgsByVer := map[string][]string{}
+	for _, pkgFileName := range packageFiles {
+		// compensate for semver pre-release versions (e.g. alpha/beta/rc/etc.)
+		// RHEL based packages will not build without replacing the '-' in semver
+		// format 1.0.0-alpha.1
+		pkgName := strings.Replace(pkgFileName, `~`, `-`, -1)
+
+		parts := strings.Split(pkgName, "-")
 		if len(parts) < 3 {
 			continue
 		}
 		ver := parts[2]
-		if _, ok := packageFiles[ver]; !ok {
-			packageFiles[ver] = []string{}
+		if len(parts) > 3 {
+			if !strings.HasPrefix(parts[3], `1.`) {
+				ver += "-" + parts[3]
+			}
 		}
-		packageFiles[ver] = append(packageFiles[ver], fi.Name())
+		if _, ok := pkgsByVer[ver]; !ok {
+			pkgsByVer[ver] = []string{}
+		}
+		pkgsByVer[ver] = append(pkgsByVer[ver], pkgFileName)
 	}
 
 	verList := []string{}
-	for ver := range packageFiles {
+	for ver := range pkgsByVer {
 		verList = append(verList, ver)
 	}
 
 	sort.Sort(sort.Reverse(sort.StringSlice(verList)))
 
+	releases := []Release{}
 	for _, ver := range verList {
 		releases = append(releases, Release{
 			Version:  ver,
-			Packages: packageFiles[ver],
+			Packages: pkgsByVer[ver],
 		})
 	}
 
@@ -90,7 +112,13 @@ func writeIndex(pkgDir string, releases []Release) error {
     <html>
     <head><title>Circonus Agent Packages</title><meta charset="UTF-8"></head>
     <body>
-    <h1>Circonus Agent Packages</h1>
+	<h1>Circonus Agent Packages</h1>
+	<p>
+	Note: These are packages used by cosi only. If target operating system or architecture is 
+	not listed here (e.g. Windows, Illumos, Arm), please check the circonus-agent
+	<a href="https://github.com/circonus-labs/circonus-agent/releases">releases</a> 
+	page as there may be an agent available.
+	</p>
     {{range .}}
     <h4>v{{ .Version}}</h4>
     <ul>
