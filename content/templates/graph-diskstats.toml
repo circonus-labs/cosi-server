@@ -9,13 +9,12 @@ Disk Utilization Summary
 variable = true
 
 [filters]
-exclude = []
-include = [
-    "^sd[a-z]$",
-    "^xvd[a-z]$",
-    "^ad[a-z][0-9]+$",
-    "^da[0-9]+$"
+exclude = [
+    "^loop[0-9]+$",
+    "^sr[0-9]+$",
+    "^fd[0-9]+$"
 ]
+include = []
 
 [configs.utilization]
 variable = false
