@@ -35,7 +35,7 @@ import (
 
 // Server defines the listening servers
 type Server struct {
-	ctx                 context.Context
+	// ctx                 context.Context
 	logger              zerolog.Logger
 	svrHTTP             []*httpServer
 	svrHTTPS            *sslServer
@@ -261,11 +261,15 @@ func (s *Server) Start() error {
 	defer cancel()
 
 	wg.Add(1)
-	go s.startHTTPS(ctx, &wg)
+	go func() {
+		s.startHTTPS(ctx, &wg)
+	}()
 
 	for _, svrHTTP := range s.svrHTTP {
 		wg.Add(1)
-		go s.startHTTP(ctx, svrHTTP, &wg)
+		go func(svrHTTP *httpServer) {
+			s.startHTTP(ctx, svrHTTP, &wg)
+		}(svrHTTP)
 	}
 
 	c := make(chan os.Signal, 1)
@@ -283,16 +287,16 @@ func (s *Server) Start() error {
 	return nil
 }
 
-func (s *Server) startHTTP(ctx context.Context, svr *httpServer, wg *sync.WaitGroup) error {
+func (s *Server) startHTTP(ctx context.Context, svr *httpServer, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	if svr == nil {
 		s.logger.Debug().Msg("No listen configured, skipping server")
-		return nil
+		return
 	}
 	if svr.address == nil || svr.server == nil {
 		s.logger.Debug().Msg("listen not configured, skipping server")
-		return nil
+		return
 	}
 
 	go func() {
@@ -308,19 +312,19 @@ func (s *Server) startHTTP(ctx context.Context, svr *httpServer, wg *sync.WaitGr
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	svr.server.Shutdown(shutdownCtx)
+	if err := svr.server.Shutdown(shutdownCtx); err != nil {
+		s.logger.Error().Err(err).Msg("shutting down server")
+	}
 
 	s.logger.Info().Msg("http server gracefully stopped")
-
-	return nil
 }
 
-func (s *Server) startHTTPS(ctx context.Context, wg *sync.WaitGroup) error {
+func (s *Server) startHTTPS(ctx context.Context, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	if s.svrHTTPS == nil {
 		s.logger.Debug().Msg("No SSL listen configured, skipping server")
-		return nil
+		return
 	}
 
 	go func() {
@@ -336,11 +340,11 @@ func (s *Server) startHTTPS(ctx context.Context, wg *sync.WaitGroup) error {
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	s.svrHTTPS.server.Shutdown(shutdownCtx)
+	if err := s.svrHTTPS.server.Shutdown(shutdownCtx); err != nil {
+		s.logger.Error().Err(err).Msg("shutting down server")
+	}
 
 	s.logger.Info().Msg("https server gracefully stopped")
-
-	return nil
 }
 
 // parseListen parses and fixes listen spec
