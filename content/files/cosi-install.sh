@@ -434,7 +434,7 @@ __download_package() {
     # do what we can to validate agent package url
     #
     if [[ -n "${package_url:-}" ]]; then
-        [[ "$package_url" =~ ^http[s]?://[^/]+/.*\.(rpm|deb|tar\.gz)$ ]] || fail "COSI agent package url does not match URL pattern (^http[s]?://[^/]+/.*\.(rpm|deb)$)"
+        [[ "$package_url" =~ ^http[s]?://[^/]+/.*\.(rpm|deb|tgz)$ ]] || fail "COSI agent package url does not match URL pattern (^http[s]?://[^/]+/.*\.(rpm|deb|tgz)$)"
     else
         fail "Invalid COSI agent package url"
     fi
