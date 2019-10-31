@@ -434,7 +434,7 @@ __download_package() {
     # do what we can to validate agent package url
     #
     if [[ -n "${package_url:-}" ]]; then
-        [[ "$package_url" =~ ^http[s]?://[^/]+/.*\.(rpm|deb|tar\.gz)$ ]] || fail "COSI agent package url does not match URL pattern (^http[s]?://[^/]+/.*\.(rpm|deb)$)"
+        [[ "$package_url" =~ ^http[s]?://[^/]+/.*\.(rpm|deb|tgz)$ ]] || fail "COSI agent package url does not match URL pattern (^http[s]?://[^/]+/.*\.(rpm|deb|tgz)$)"
     else
         fail "Invalid COSI agent package url"
     fi
@@ -639,9 +639,9 @@ __start_agent() {
             if [[ -f /etc/rc.conf ]]; then
                 # treat as FreeBSD
                 # enable it if there is no circonus-agent_enable setting
-                [[ $(grep -cE '^circonus-agent_enable' /etc/rc.conf) -eq 0 ]] && echo 'circonus-agent_enable="YES"' >> /etc/rc.conf
+                [[ $(grep -cE '^circonus_agent_enable' /etc/rc.conf) -eq 0 ]] && echo 'circonus_agent_enable="YES"' >> /etc/rc.conf
                 # start it if it is enabled
-                [[ $(grep -c 'circonus-agent_enable="YES"' /etc/rc.conf) -eq 1 ]] && service circonus-agent start
+                [[ $(grep -c 'circonus_agent_enable="YES"' /etc/rc.conf) -eq 1 ]] && service circonus-agent start
             fi
         else
             fail "Agent installed, unable to determine how to start it (unrecognized init system)."

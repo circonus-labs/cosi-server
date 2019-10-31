@@ -1,3 +1,8 @@
+# v0.5.5 [CIRC-4272]
+
+* fix: correct rc.conf agent name for freebsd
+* fix: installer script, validate pkg extension against rpm|deb|tgz rather than tar.gz
+
 # v0.5.4
 
 * upd: handle pre-release packages in index builder
