@@ -48,7 +48,7 @@ datapoints = [
     {
         "alpha": "0.3",
         "axis": "l",
-        "check_id": null,
+        "check_id": {{.CheckID}},
         "color": "#4fa18e",
         "data_formula": null,
         "derive": "counter",
@@ -68,7 +68,7 @@ datapoints = [
     {
         "alpha": "0.3",
         "axis": "l",
-        "check_id": null,
+        "check_id": {{.CheckID}},
         "color": "#657aa6",
         "data_formula": "=-1 * VAL",
         "derive": "counter",
@@ -88,7 +88,7 @@ datapoints = [
     {
         "alpha": "0.3",
         "axis": "r",
-        "check_id": null,
+        "check_id": {{.CheckID}},
         "color": "#b5c52d",
         "data_formula": null,
         "derive": "counter",
@@ -108,7 +108,7 @@ datapoints = [
     {
         "alpha": "0.3",
         "axis": "r",
-        "check_id": null,
+        "check_id": {{.CheckID}},
         "color": "#8e69a2",
         "data_formula": "=-1 * VAL",
         "derive": "counter",
