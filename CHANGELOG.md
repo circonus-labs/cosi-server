@@ -1,3 +1,7 @@
+# v0.5.6
+
+* fix: disk template to use {{.CheckID}} for check_id attribute
+
 # v0.5.5 [CIRC-4272]
 
 * fix: correct rc.conf agent name for freebsd
