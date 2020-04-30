@@ -64,7 +64,7 @@ func (c *Client) FetchRawTemplate(id string) ([]byte, error) {
 }
 
 func parseTemplateID(id string) (string, string, error) {
-	idParts := strings.Split(id, "-")
+	idParts := strings.SplitN(id, "-", 2)
 	if len(idParts) != 2 {
 		return "", "", errors.Errorf("invalid id format (%s)", id)
 	}
