@@ -1,3 +1,7 @@
+# v0.5.7
+
+* fix: templates for plugins with dashes in name
+
 # v0.5.6
 
 * fix: disk template to use {{.CheckID}} for check_id attribute
