@@ -30,8 +30,8 @@ func TestParseTemplateID(t *testing.T) {
 		errorExpect error
 	}{
 		{"valid", "check-system", "check", "system", false, nil},
+		{"valid (parts>2)", "foo-bar-baz", "foo", "bar-baz", false, nil}, // errors.New("invalid id format (foo-bar-baz)")},
 		{"invalid (parts<2)", "foo", "", "", true, errors.New("invalid id format (foo)")},
-		{"invalid (parts>2)", "foo-bar-baz", "", "", true, errors.New("invalid id format (foo-bar-baz)")},
 	}
 
 	for _, test := range tests {
