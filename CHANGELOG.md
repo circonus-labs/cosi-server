@@ -1,5 +1,6 @@
 # v0.5.7
 
+* upd: lint fix
 * fix: templates for plugins with dashes in name
 
 # v0.5.6
