@@ -81,7 +81,7 @@ func (s *Server) broker() http.Handler {
 
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusOK)
-				fmt.Fprintln(w, fmt.Sprintf(`{"broker_id": "%d"}`, brokerID))
+				fmt.Fprintf(w, `{"broker_id": "%d"}\n`, brokerID)
 				s.stats.Increment(fmt.Sprintf("%s`%d", r.URL.Path, http.StatusOK))
 				s.stats.Increment(fmt.Sprintf("%s`%s`%d", r.URL.Path, mode, http.StatusOK))
 			}),
