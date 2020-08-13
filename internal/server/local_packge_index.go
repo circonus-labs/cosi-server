@@ -10,10 +10,13 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"regexp"
 	"sort"
 	"strings"
 
+	"github.com/Masterminds/semver"
 	"github.com/pkg/errors"
+	"github.com/rs/zerolog/log"
 )
 
 type Release struct {
@@ -65,42 +68,58 @@ func releases(packageFiles []string) ([]Release, error) {
 		return nil, errors.New("invalid package file list (empty)")
 	}
 
+	rx := regexp.MustCompile(`^circonus-agent-(.+)-1\..+$`)
 	pkgsByVer := map[string][]string{}
 	for _, pkgFileName := range packageFiles {
 		// compensate for semver pre-release versions (e.g. alpha/beta/rc/etc.)
 		// RHEL based packages will not build without replacing the '-' in semver
-		// format 1.0.0-alpha.1
+		// format 1.0.0-alpha.1 -> 1.0.0~alpha.1
 		pkgName := strings.Replace(pkgFileName, `~`, `-`, -1)
 
-		parts := strings.Split(pkgName, "-")
-		if len(parts) < 3 {
+		m := rx.FindStringSubmatch(pkgName)
+		if len(m) != 2 {
+			log.Warn().Str("pkg", pkgName).Str("rx", rx.String()).Msg("package name doesn't match regex, skipping")
 			continue
 		}
-		ver := parts[2]
-		if len(parts) > 3 {
-			if !strings.HasPrefix(parts[3], `1.`) {
-				ver += "-" + parts[3]
-			}
-		}
+		ver := m[1]
+		// parts := strings.Split(pkgName, "-")
+		// if len(parts) < 3 {
+		// 	continue
+		// }
+		// ver := parts[2]
+		// if len(parts) > 3 {
+		// 	if !strings.HasPrefix(parts[3], `1.`) {
+		// 		ver += "-" + parts[3]
+		// 	}
+		// }
 		if _, ok := pkgsByVer[ver]; !ok {
 			pkgsByVer[ver] = []string{}
 		}
 		pkgsByVer[ver] = append(pkgsByVer[ver], pkgFileName)
 	}
 
-	verList := []string{}
+	verList := make([]*semver.Version, len(pkgsByVer))
+	i := 0
 	for ver := range pkgsByVer {
-		verList = append(verList, ver)
+		v, err := semver.NewVersion(ver)
+		if err != nil {
+			log.Warn().Err(err).Str("ver", ver).Msg("could not parse semver, skipping")
+			continue
+		}
+		verList[i] = v
+		i++
 	}
 
-	sort.Sort(sort.Reverse(sort.StringSlice(verList)))
+	sort.Sort(sort.Reverse(semver.Collection(verList)))
 
 	releases := []Release{}
 	for _, ver := range verList {
-		releases = append(releases, Release{
-			Version:  ver,
-			Packages: pkgsByVer[ver],
-		})
+		if ver != nil {
+			releases = append(releases, Release{
+				Version:  ver.String(),
+				Packages: pkgsByVer[ver.String()],
+			})
+		}
 	}
 
 	return releases, nil
