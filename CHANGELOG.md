@@ -1,3 +1,8 @@
+# v0.5.8
+
+* upd: dependencies
+* upd: semver sort packages
+
 # v0.5.7
 
 * upd: lint fix
