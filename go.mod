@@ -15,7 +15,7 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.7.1
 	github.com/xi2/httpgzip v0.0.0-20190509075255-932ab5e254ae
-	golang.org/x/sys v0.0.0-20191008105621-543471e840be // indirect
+	golang.org/x/sys v0.1.0 // indirect
 	gopkg.in/alexcesaro/statsd.v2 v2.0.0 // indirect
 	gopkg.in/yaml.v2 v2.3.0
 )
